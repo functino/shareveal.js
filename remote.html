@@ -1,0 +1,44 @@
+<!doctype html>  
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>reveal.js remote</title>
+		<style type="text/css">
+			#next, #back {
+				margin: 0 auto;
+				margin-top: 15px;
+				width: 400;
+				border-radius: 10px;
+				background-color: #efefef;
+				border: 1px black solid;
+				padding: 80px;
+				text-align: center;
+				font-family: Arial, sans-serif;
+				font-size: 200px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="next">Next</div>
+		<div id="back">Back</div>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+		<script type="text/javascript" src="/faye/client.js"></script>
+		<script type="text/javascript">
+			
+			var client = new Faye.Client('/faye');		
+			var next = function(){
+				client.publish('/reveal/master/next', {});
+			};
+			var back = function(){
+				client.publish('/reveal/master/back', {});
+			};			
+			if ('ontouchstart' in document.documentElement) {
+				$('#next').on("touchstart", next);			
+				$('#back').on("touchstart", back);
+			} else {
+				$('#next').click(next);
+				$('#back').click(back);
+			}
+		</script>
+	</body>
+</html>

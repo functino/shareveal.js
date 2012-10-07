@@ -40,7 +40,7 @@
 			<div class="progress"><span></span></div>
 			
 		</div>
-		
+		<script src="http://code.jquery.com/jquery.min.js"></script>
 		<script src="reveal.js/js/reveal.js"></script>
 
 		<!-- Optional libraries for code syntax highlighting and classList support in IE9 -->
@@ -106,5 +106,20 @@
 				});				
 			<% end %>
 			</script>
+			<script type="text/javascript" src="/webcam-swiper-0.1.js"></script>	
+			<script type="text/javascript">
+				// for the moment make it only possible to mvoe forward
+				// because it often misdetects the wave direction
+				var webcamSwipeEnabled = true;
+				$("body").bind("webcamSwipeRight", function() {
+					if (webcamSwipeEnabled) {
+						Reveal.navigateRight();
+						// disable swiping for 1 second to avoid "double firing" of the event
+						webcamSwipeEnabled = false;
+						setTimeout(function(){ webcamSwipeEnabled = true}, 1000);
+					}
+				});		
+				window.initializeWebcamSwiper();
+			</script>			
 	</body>
 </html>
